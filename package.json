@@ -1,0 +1,37 @@
+{
+  "name": "froyexpress",
+  "version": "1.0.0",
+  "description": "A quick and simple boilerplate for ExpressJs projects.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/froilansam/froyexpress.git"
+  },
+  "keywords": [
+    "ExpressJs",
+    "Boilerplate"
+  ],
+  "author": "Froilan Sam Saceda Malibiran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/froilansam/froyexpress/issues"
+  },
+  "homepage": "https://github.com/froilansam/froyexpress#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "method-override": "^3.0.0",
+    "morgan": "^1.9.1",
+    "mysql": "^2.16.0",
+    "pug": "^2.0.3",
+    "readable-stream": "^3.0.6",
+    "safe-buffer": "^5.1.2",
+    "serve-static": "^1.13.2",
+    "sql-string": "^1.0.7"
+  }
+}
