@@ -4,7 +4,7 @@ Landing Page for Web and Mobile PH
 
 ## How to Install
 
-1. Fork this repository. The fork button should be at the upper right of this page. Fork it to your personal GitHub profiles. By doing so, you'll have a copy of the boilerplate in your respective profiles. To check, your URL should be like this: `https://github.com/your_username/froyexpress`
+1. Fork this repository. The fork button should be at the upper right of this page. Fork it to your personal GitHub profiles. By doing so, you'll have a copy of the boilerplate in your respective profiles. To check, your URL should be like this: `https://github.com/your_username/CodestackPH`
 
 2. After forking, clone it to your local machines. Forking gives you ownership to the copy of the project, thus you'll have automatic read and write (pull and push) privileges. No need to authenticate as long as you have configured your SSH keys.
 
