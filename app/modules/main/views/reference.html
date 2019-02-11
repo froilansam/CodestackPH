@@ -1,0 +1,81 @@
+
+<html>
+<head>
+	<title>
+		HTML + JS + FIREBASE
+	</title>
+	<style>
+	table, th, td {
+	  border: 1px solid black;
+	}
+	</style>
+</head>
+<body>
+	Name: <input type="text" id="name">
+	Age: <input type="number" id="age">
+	<button onclick="addPerson()">Add</button>
+
+	<br><br>
+	People
+	<hr>
+	<table id="people">
+
+	</table>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-firestore.js"></script>
+<script>
+	/*
+		FOR REFERENCE
+		var config = {
+			apiKey: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX", <--- YOU CAN GET THIS ON PROJECT SETTINGS/GENERAL
+			authDomain: "XXXXXX.firebaseapp.com", <---- JUST REPLACE 'xxxxxxx' WITH PROJECT ID
+			databaseURL: "https://XXXXXXXXXX.firebaseio.com", <---- JUST REPLACE 'xxxxxxx' WITH PROJECT ID
+			projectId: "XXXXXXXXXXXXXXXXX", <---- JUST REPLACE 'xxxxxxx' WITH PROJECT ID
+			storageBucket: "XXXXXXXXXXXXXXX.appspot.com", <---- JUST REPLACE 'xxxxxxx' WITH PROJECT ID
+			messagingSenderId: "XXXXXXXXXXXXXXX" <------ YOU CAN GET THIS ON PROJECT SETTINGS/CLOUD MESSAGING
+		};
+	*/
+	var config = {	
+        apiKey: "AIzaSyCrjY8V6VjrK4nS6k8ZZiVCd8twGRDKIqk",
+        authDomain: "tutorial-e0d6e.firebaseapp.com",
+        databaseURL: "https://tutorial-e0d6e.firebaseio.com",
+        projectId: "tutorial-e0d6e",
+        storageBucket: "tutorial-e0d6e.appspot.com",
+        messagingSenderId: "663554667261"
+    };
+	firebase.initializeApp(config);
+	var database = firebase.firestore().collection('people');
+
+	database.onSnapshot(function(){ //ON SNAPSHOT FUNCTION IS A LISTENER TO CHANGES IN THE DATABASE
+		database.get().then(collection => {
+		  var people="<tr><th>NAME</th><th>AGE</th></tr>";
+		  collection.forEach(doc => {
+		  	people+="<tr>";
+		  	people+= "<td>"+ doc.data().name +"</td>";
+		  	people+= "<td>"+  doc.data().age +"</td>";
+		  	people+= "</tr>"
+		  });
+	
+		  $('#people').html(people);
+		});
+	});
+
+	function addPerson(){
+		if(document.getElementById('name').value=="" && document.getElementById('age').value==""){
+			alert("ALL FIELDS ARE REQUIRED!!!!")
+			return
+		}
+		firebase.firestore().collection('people').add({name: document.getElementById('name').value, age: document.getElementById('age').value})
+		alert("ADDED!!")
+		document.getElementById('name').value=""
+		document.getElementById('age').value=""
+
+	}	
+
+
+
+
+</script>
+</html>
