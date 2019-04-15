@@ -475,10 +475,15 @@ section#work.background2.section-padding-top
       .col-xs-12.text-center.mb50
         // Filter Buttons
         button.filter.btn.btn-default.btn-category.btn-lg(data-filter='all') All
-        button.filter.btn.btn-default.btn-category.btn-lg(data-filter='.identity') I Love Vue.js v1.0
-        button.filter.btn.btn-default.btn-category.btn-lg(data-filter='.print') Quasar Training
-        button.filter.btn.btn-default.btn-category.btn-lg(data-filter='.graphics') Another Training
-        button.filter.btn.btn-default.btn-category.btn-lg(data-filter='.web') Last Training
+        #eventButtons
+          -if(docPic)
+            -var eventnames = [];
+            -for(var i = 0; i < docPic.length; i++)
+              -if(!eventnames.includes(docPic[i].eventname))
+                -eventnames.push(docPic[i].eventname)
+                button.filter.btn.btn-default.btn-category.btn-lg(data-filter=`.${docPic[i].eventid}`) #{docPic[i].eventname}
+        
+
         // Sort Buttons
         button.sort.btn.btn-default.btn-sort.btn-lg(data-sort='my-order:asc')
           span.ion-ios-plus-empty
@@ -486,141 +491,21 @@ section#work.background2.section-padding-top
           span.ion-ios-minus-empty
       // /.column
     // /.row
-    #thework
-      // Item 1
-      .col-xs-12.col-sm-6.col-md-4.col-lg-4.portfolio-box.no-padding.mix.graphics(data-my-order='3')
-        .portfolio-image-holder
-          img.img-responsive.portfolio-image(src='/assets/images/work/1.jpg' alt='1')
-        span.portfolio-badge.badge Graphics
-        span.portfolio-hover
-          span
-            a(href='https://dribbble.com/' target='_blank')
-              span.portfolio-links
-                span.ion-ios-arrow-right.portfolio-links-icons
-            a.zoom(href='/assets/images/work/1.jpg' title='Equipt Design')
-              span.portfolio-links
-                span.ion-arrow-expand.portfolio-links-icons
-            span.project-title.no-margin-bottom.mt10 Equipt Design
-      // /.column
-      // Item 2
-      .col-xs-12.col-sm-6.col-md-4.col-lg-4.portfolio-box.no-padding.mix.print.identity(data-my-order='6')
-        .portfolio-image-holder
-          img.img-responsive.portfolio-image(src='/assets/images/work/2.jpg' alt='2')
-        span.portfolio-badge.badge Print + Identity
-        span.portfolio-hover
-          span
-            a(href='https://dribbble.com/' target='_blank')
-              span.portfolio-links
-                span.ion-ios-arrow-right.portfolio-links-icons
-            a.zoom(href='/assets/images/work/2.jpg' title="Goodman's Burger")
-              span.portfolio-links
-                span.ion-arrow-expand.portfolio-links-icons
-            span.project-title.no-margin-bottom.mt10 Goodman&apos;s Burger
-      // /.column
-      // Item 3
-      .col-xs-12.col-sm-6.col-md-4.col-lg-4.portfolio-box.no-padding.mix.identity(data-my-order='4')
-        .portfolio-image-holder
-          img.img-responsive.portfolio-image(src='/assets/images/work/3.jpg' alt='3')
-        span.portfolio-badge.badge Print
-        span.portfolio-hover
-          span
-            a(href='https://dribbble.com/' target='_blank')
-              span.portfolio-links
-                span.ion-ios-arrow-right.portfolio-links-icons
-            a.zoom(href='/assets/images/work/3.jpg' title='Paper Mockup')
-              span.portfolio-links
-                span.ion-arrow-expand.portfolio-links-icons
-            span.project-title.no-margin-bottom.mt10 Paper Mockup
-      // /.column
-      // Item 4
-      .col-xs-12.col-sm-6.col-md-4.col-lg-4.portfolio-box.no-padding.mix.graphics(data-my-order='5')
-        .portfolio-image-holder
-          img.img-responsive.portfolio-image(src='/assets/images/work/4.jpg' alt='4')
-        span.portfolio-badge.badge Graphics
-        span.portfolio-hover
-          span
-            a(href='https://dribbble.com/' target='_blank')
-              span.portfolio-links
-                span.ion-ios-arrow-right.portfolio-links-icons
-            a.zoom(href='/assets/images/work/4.jpg' title='Simple Pleasure')
-              span.portfolio-links
-                span.ion-arrow-expand.portfolio-links-icons
-            span.project-title.no-margin-bottom.mt10 Simple Pleasure
-      // /.column
-      // Item 5
-      .col-xs-12.col-sm-6.col-md-4.col-lg-4.portfolio-box.no-padding.mix.print.identity(data-my-order='2')
-        .portfolio-image-holder
-          img.img-responsive.portfolio-image(src='/assets/images/work/5.jpg' alt='5')
-        span.portfolio-badge.badge Print + Identity
-        span.portfolio-hover
-          span
-            a(href='https://dribbble.com/' target='_blank')
-              span.portfolio-links
-                span.ion-ios-arrow-right.portfolio-links-icons
-            a.zoom(href='/assets/images/work/5.jpg' title='Wine Bottles')
-              span.portfolio-links
-                span.ion-arrow-expand.portfolio-links-icons
-            span.project-title.no-margin-bottom.mt10 Wine Bottles
-      // /.column
-      // Item 6
-      .col-xs-12.col-sm-6.col-md-4.col-lg-4.portfolio-box.no-padding.mix.web(data-my-order='1')
-        .portfolio-image-holder
-          img.img-responsive.portfolio-image(src='/assets/images/work/6.jpg' alt='6')
-        span.portfolio-badge.badge Web
-        span.portfolio-hover
-          span
-            a(href='https://dribbble.com/' target='_blank')
-              span.portfolio-links
-                span.ion-ios-arrow-right.portfolio-links-icons
-            a.zoom(href='/assets/images/work/6.jpg' title='Web UI')
-              span.portfolio-links
-                span.ion-arrow-expand.portfolio-links-icons
-            span.project-title.no-margin-bottom.mt10 Web UI
-      // /.column
-      // Item 7
-      .col-xs-12.col-sm-6.col-md-4.col-lg-4.portfolio-box.no-padding.mix.graphics.print(data-my-order='9')
-        .portfolio-image-holder
-          img.img-responsive.portfolio-image(src='/assets/images/work/7.jpg' alt='7')
-        span.portfolio-badge.badge Graphics + Print
-        span.portfolio-hover
-          span
-            a(href='https://dribbble.com/' target='_blank')
-              span.portfolio-links
-                span.ion-ios-arrow-right.portfolio-links-icons
-            a.zoom(href='/assets/images/work/7.jpg' title='Hello World')
-              span.portfolio-links
-                span.ion-arrow-expand.portfolio-links-icons
-            span.project-title.no-margin-bottom.mt10 Hello World
-      // /.column
-      // Item 8
-      .col-xs-12.col-sm-6.col-md-4.col-lg-4.portfolio-box.no-padding.mix.web(data-my-order='7')
-        .portfolio-image-holder
-          img.img-responsive.portfolio-image(src='/assets/images/work/8.jpg' alt='8')
-        span.portfolio-badge.badge Web
-        span.portfolio-hover
-          span
-            a(href='https://dribbble.com/' target='_blank')
-              span.portfolio-links
-                span.ion-ios-arrow-right.portfolio-links-icons
-            a.zoom(href='/assets/images/work/8.jpg' title='We Create Mobile')
-              span.portfolio-links
-                span.ion-arrow-expand.portfolio-links-icons
-            span.project-title.no-margin-bottom.mt10 We Create Mobile
-      // /.column
-      // Item 9
-      .col-xs-12.col-sm-6.col-md-4.col-lg-4.portfolio-box.no-padding.mix.web(data-my-order='8')
-        .portfolio-image-holder
-          img.img-responsive.portfolio-image(src='/assets/images/work/9.jpg' alt='9')
-        span.portfolio-badge.badge Web
-        span.portfolio-hover
-          span
-            a(href='https://dribbble.com/' target='_blank')
-              span.portfolio-links
-                span.ion-ios-arrow-right.portfolio-links-icons
-            a.zoom(href='/assets/images/work/9.jpg' title='Captain da Ship')
-              span.portfolio-links
-                span.ion-arrow-expand.portfolio-links-icons
-            span.project-title.no-margin-bottom.mt10 Captain da Ship
+    #thework(style='padding:100px')
+      -if(docPic)
+        -for(var i = 0; i < docPic.length; i++)
+          .col-xs-12.col-sm-6.col-md-4.col-lg-4.portfolio-box.no-padding.mix(data-my-order=`${i}` class=`${docPic[i].eventid}`)
+            .portfolio-image-holder
+              img.img-responsive.portfolio-image(style='width: 450px; height: 200px;' src=`${docPic[i].url.url}` alt='1')
+            span.portfolio-hover
+              span
+                a(href='https://dribbble.com/' target='_blank')
+                  span.portfolio-links
+                    span.ion-ios-arrow-right.portfolio-links-icons
+                a.zoom(href=`${docPic[i].url.url}` title='Equipt Design')
+                  span.portfolio-links
+                    span.ion-arrow-expand.portfolio-links-icons
+      
       // /.column
     // /.row
   // /.container
@@ -636,9 +521,12 @@ section#work.background2.section-padding-top
         #quote-carousel.fade-quote-carousel.carousel.slide(data-ride='carousel' data-interval='3000')
           // Carousel indicators
           ol.carousel-indicators
-            li.active(data-target='#quote-carousel' data-slide-to='0')
-            li(data-target='#quote-carousel' data-slide-to='1')
-            li(data-target='#quote-carousel' data-slide-to='2')
+            -if(docTestimonial)
+              -for(var i = 0; i < docTestimonial.length; i++)
+                -if(i == 0)
+                    li.active(data-target='#quote-carousel' data-slide-to='0')
+                -else
+                  li(data-target='#quote-carousel' data-slide-to=`${i}`)
           // Carousel items
           .carousel-inner
             -if(docTestimonial)
@@ -646,13 +534,13 @@ section#work.background2.section-padding-top
                 -if(i == 0)
                   .active.item
                     blockquote
-                      p "#{docTestimonial.testimony}"
-                    p -#{docTestimonial.testifier}
+                      p "#{docTestimonial[i].testimony}"
+                    p -#{docTestimonial[i].testifier}
                 -else
                   .item
                     blockquote
-                      p "#{docTestimonial.testimony}"
-                    p -#{docTestimonial.testifier}
+                      p "#{docTestimonial[i].testimony}"
+                    p -#{docTestimonial[i].testifier}
             
         // /.carousel
       // /.column
@@ -958,7 +846,8 @@ script.
   $(document).ready(function(){
     var hostname = `!{hostname}`
     var port = `!{port}`
-    var socket = io(`http://${hostname}:${port}`);
+    var socket = io(`http://${hostname}:${port}`)
+    
 
     socket.on('aboutusClient', function(aboutusData){
       console.log(aboutusData);
@@ -999,9 +888,7 @@ script.
       })
     })
 
-    socket.on('testimonialClient', function(testimonialData){
-      console.log(testimonialData);
-    })
+  
   })
 
 

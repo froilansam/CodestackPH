@@ -18,6 +18,7 @@ var database = firebase.firestore();
 let aboutus = database.collection('aboutus');
 let contactus = database.collection('contactus');
 let testimonial = database.collection('testimonial');
+let gallery = database.collection('gallery');
 var socket = require('socket.io-client')(`http://localhost:3000`)
 aboutus.onSnapshot(function(){ //ON SNAPSHOT FUNCTION IS A LISTENER TO CHANGES IN THE DATABASE
     aboutus.get().then(collection => {
@@ -52,6 +53,45 @@ testimonial.onSnapshot(function(){ //ON SNAPSHOT FUNCTION IS A LISTENER TO CHANG
                 console.log('Data Sent to Index.')
             });
         });
+
+    });
+});
+
+gallery.onSnapshot(function(){ //ON SNAPSHOT FUNCTION IS A LISTENER TO CHANGES IN THE DATABASE
+    gallery.get().then(collection => {
+        console.log('----Collection: gallery ----')
+        let arrPic = []
+        let c = 0;
+        let colLength = collection.size
+        console.log('size: ', colLength);
+        collection.forEach(doc => {
+            
+            gallery.doc(doc.id).collection('photos').get().then(function(docu){
+                
+                docu.forEach(pic => {
+                    let jsonPic = {}
+                    jsonPic['eventname'] = doc.data().event_name;
+                    jsonPic['eventid'] = doc.id;
+                    jsonPic['url'] = pic.data();
+                    arrPic.push(jsonPic);
+                    
+                    if (c == colLength -1) {
+                        // execute last item logic
+                        console.log('------------------sss-------------')
+                        console.log(arrPic)
+                        socket.emit('galleryBackend', arrPic, function(){
+                            console.log('Data Sent to Index.')
+                        });
+                    }
+                })
+                c++;
+                
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+
+
+        })
 
     });
 });
@@ -112,6 +152,45 @@ router.get('/', (req, res) => {
             });
         });
     }
+
+    function getGallery(){
+        return new Promise((resolve, reject)=>{
+            gallery.get().then(collection => {
+                console.log('----Collection: gallery ----')
+                let arrPic = []
+                let c = 0;
+                let colLength = collection.size
+                console.log('size: ', colLength);
+                collection.forEach(doc => {
+                    
+                    gallery.doc(doc.id).collection('photos').get().then(function(docu){
+                        
+                        docu.forEach(pic => {
+                            let jsonPic = {}
+                            jsonPic['eventname'] = doc.data().event_name;
+                            jsonPic['eventid'] = doc.id;
+                            jsonPic['url'] = pic.data();
+                            arrPic.push(jsonPic);
+                            
+                            if (c == colLength -1) {
+                                // execute last item logic
+                                console.log('------------------sss-------------')
+                                console.log(arrPic)
+                                resolve(arrPic);
+                            }
+                        })
+                        c++;
+                        
+                    }).catch(function(error) {
+                        console.log("Error getting document:", error);
+                    });
+
+
+                })
+
+            });
+        })
+    }
     // Getting all the data
     
 
@@ -120,10 +199,14 @@ router.get('/', (req, res) => {
         getContactUs().then(docData => {
             let docContact = docData;
             getTestimonial().then(docData => {
-                let docTestimonial = docData
+                let docTestimonial = docData;
                 console.log(docTestimonial)
-                res.render('main/views/index', {hostname: req.hostname, port: req.port, docAbout: docAbout, docContact: docContact, docTestimonial: docTestimonial});
-            });            
+                getGallery().then(docData => {
+                    let docPic = docData
+                    res.render('main/views/index', {hostname: req.hostname, port: req.port, docAbout: docAbout, docContact: docContact, docTestimonial: docTestimonial, docPic: docPic});
+                })
+            }); 
+
         });        
     })
 })

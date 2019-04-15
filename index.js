@@ -36,6 +36,10 @@ io.on('connection', function(socket){
     socket.on('testimonialBackend', function(testimonialData){
         io.emit('testimonialClient', testimonialData);
     })
+
+    socket.on('galleryBackend', function(galleryData){
+        io.emit('galleryClient', galleryData);
+    })
 });
 
 // We now pass the app instance to a custom module 'app' for bootstrapping\\
